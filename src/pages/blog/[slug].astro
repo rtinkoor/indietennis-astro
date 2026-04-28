@@ -23,27 +23,41 @@ const formattedDate = new Date(post.publishedDate).toLocaleDateString('en-US', {
 
 const canonicalUrl = `https://www.indietennis.com/blog/${post.slug}`;
 
-const articleSchema = JSON.stringify({
+const schemas = JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: post.title,
-  description: post.metaDescription,
-  author: {
-    '@type': 'Organization',
-    name: post.author,
-    url: 'https://www.indietennis.com',
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'IndieTennis',
-    url: 'https://www.indietennis.com',
-  },
-  datePublished: post.publishedDate,
-  dateModified: post.updatedDate ?? post.publishedDate,
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': canonicalUrl,
-  },
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${canonicalUrl}#article`,
+      headline: post.title,
+      description: post.metaDescription,
+      author: {
+        '@type': 'Organization',
+        name: 'IndieTennis',
+        url: 'https://www.indietennis.com',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'IndieTennis',
+        url: 'https://www.indietennis.com',
+      },
+      datePublished: post.publishedDate,
+      dateModified: post.updatedDate ?? post.publishedDate,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home',
+          item: 'https://www.indietennis.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog',
+          item: 'https://www.indietennis.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: post.title,
+          item: canonicalUrl },
+      ],
+    },
+  ],
 });
 
 const contentBlocks = post.content.trim().split('\n\n');
@@ -57,7 +71,7 @@ const contentBlocks = post.content.trim().split('\n\n');
   datePublished={post.publishedDate}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={articleSchema} />
+    <script type="application/ld+json" set:html={schemas} />
   </Fragment>
 
   <Header />
