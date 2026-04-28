@@ -1,0 +1,53 @@
+---
+---
+
+<main class="relative min-h-screen pt-32 pb-8">
+  <!-- Court background — LCP image, eager load -->
+  <img
+    src="/court-background-optimized.webp"
+    alt="Tennis court background"
+    width={1920}
+    height={1080}
+    fetchpriority="high"
+    loading="eager"
+    decoding="async"
+    class="absolute inset-0 -z-10 w-full h-full object-cover"
+  />
+
+  <section class="container mx-auto px-4">
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 min-h-[600px]">
+
+      <!-- YouTube embed -->
+      <div class="w-full max-w-2xl">
+        <div class="relative w-full aspect-video border-4 border-white rounded-lg overflow-hidden">
+          <iframe
+            class="w-full h-full"
+            src="https://www.youtube.com/embed/sO7qdx0GsK0"
+            title="Indie Tennis - Top 10 Epic Rallies"
+            width="640"
+            height="360"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Tennis ball + tagline -->
+      <div class="flex flex-col items-center gap-6">
+        <div class="relative">
+          <div class="w-48 h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-[hsl(60,90%,65%)] to-[hsl(60,85%,50%)] shadow-2xl flex items-center justify-center relative">
+            <div class="absolute inset-0 rounded-full border-4 border-white/40" style="clip-path: polygon(0 45%, 15% 35%, 35% 25%, 50% 20%, 65% 25%, 85% 35%, 100% 45%, 100% 55%, 85% 65%, 65% 75%, 50% 80%, 35% 75%, 15% 65%, 0 55%)"></div>
+            <span class="text-[hsl(0,0%,15%)] font-black text-3xl md:text-4xl -rotate-12 font-['Trebuchet_MS',_sans-serif]">indie</span>
+          </div>
+        </div>
+        <div class="text-center">
+          <h1 class="text-white text-3xl md:text-5xl font-bold leading-tight drop-shadow-lg font-['Trebuchet_MS',_sans-serif]">
+            The Independent<br />Tennis Network
+          </h1>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>

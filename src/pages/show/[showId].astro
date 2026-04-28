@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { shows } from '../../data/shows';
+import { episodesByShow } from '../../data/episodes';
+
+export function getStaticPaths() {
+  return shows.map((show) => ({
+    params: { showId: show.id },
+    props: { show },
+  }));
+}
+
+const { show } = Astro.props;
+const episodes = episodesByShow[show.id] ?? [];
+
+const showTitle = show.titleLines.join(' ');
+
+const descriptions: Record<string, string> = {
+  'inside-tennis-with-the-koz': 'In-depth analysis of tennis\'s greatest players, matches, and techniques with expert commentary from The Koz.',
+  'the-resort-channel': 'Explore the world\'s most luxurious tennis resort destinations and discover your next tennis vacation paradise.',
+  'tennis-today-with-dr-jack-ditty': 'Sports medicine, fitness, and wellness advice from Dr. Jack Ditty to help you play your best tennis.',
+  'kwik-tips': 'Quick, actionable tennis tips you can apply immediately to improve your game in minutes.',
+};
+
+const description = descriptions[show.id] ?? `Watch ${showTitle} on IndieTennis, the independent tennis network.`;
+---
+
+<BaseLayout
+  title={`${showTitle} — IndieTennis`}
+  description={description}
+  canonicalUrl={`https://www.indietennis.com/show/${show.id}`}
+>
+  <div class="min-h-screen relative">
+    <!-- Court background -->
+    <img
+      src="/court-background.webp"
+      alt="Tennis court background"
+      width={1920}
+      height={1080}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="fixed inset-0 -z-10 w-full h-full object-cover"
+    />
+
+    <Header />
+
+    <main class="pt-32 pb-16">
+      <div class="container mx-auto px-4">
+
+        <!-- Back button -->
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-white/70 hover:text-white mb-6 transition-colors font-['Verdana',_sans-serif] text-sm"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          Back to Home
+        </a>
+
+        <!-- Show header -->
+        <div
+          class="rounded-3xl p-12 mb-12 text-center shadow-2xl"
+          style={`background-color: ${show.bgColor}; color: ${show.textColor};`}
+        >
+          <h1 class="text-4xl md:text-6xl font-black mb-4 font-['Trebuchet_MS',_sans-serif]">
+            {show.titleLines.map((line) => (
+              <div>{line}</div>
+            ))}
+          </h1>
+          <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto font-['Verdana',_sans-serif]">
+            {description}
+          </p>
+        </div>
+
+        <!-- Episodes -->
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-white text-3xl font-bold mb-8 font-['Trebuchet_MS',_sans-serif]">
+            Recent Episodes
+          </h2>
+
+          <div class="space-y-4">
+            {episodes.map((episode) => (
+              <div class="bg-[hsl(0,0%,15%)] rounded-xl p-6 hover:bg-[hsl(0,0%,20%)] transition-colors border border-white/10">
+                <div class="flex flex-col md:flex-row md:items-start gap-4">
+                  <div class="flex-shrink-0">
+                    <div
+                      class="w-20 h-20 rounded-lg flex items-center justify-center"
+                      style={`background-color: ${show.bgColor};`}
+                    >
+                      <!-- Play icon -->
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style={`color: ${show.textColor};`}>
+                        <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="flex-1">
+                    <h3 class="text-white text-xl font-bold mb-2 font-['Trebuchet_MS',_sans-serif]">
+                      {episode.title}
+                    </h3>
+                    <p class="text-white/70 mb-3 font-['Verdana',_sans-serif]">
+                      {episode.description}
+                    </p>
+                    <div class="flex flex-wrap gap-4 text-sm text-white/50 font-['Verdana',_sans-serif]">
+                      <span>{episode.date}</span>
+                      <span>•</span>
+                      <span>{episode.duration}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

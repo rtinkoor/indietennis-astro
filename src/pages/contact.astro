@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Contact Us — IndieTennis"
+  description="Get in touch with IndieTennis — The Independent Tennis Network. Contact us for inquiries, partnerships, or feedback."
+  canonicalUrl="https://www.indietennis.com/contact"
+>
+  <Header />
+
+  <main class="relative min-h-screen pt-32 pb-16">
+    <img
+      src="/court-background-optimized.webp"
+      alt="Tennis court background"
+      width={1920}
+      height={1080}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 -z-10 w-full h-full object-cover"
+    />
+
+    <div class="container mx-auto px-4 max-w-2xl">
+      <div class="bg-black/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/10">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-6 font-['Trebuchet_MS',_sans-serif]">
+          Contact IndieTennis
+        </h1>
+
+        <div class="space-y-6 text-white/80">
+          <p class="text-lg font-['Verdana',_sans-serif]">The Independent Tennis Network</p>
+
+          <div class="space-y-4">
+            <div>
+              <h2 class="text-xl font-bold text-white mb-2 font-['Trebuchet_MS',_sans-serif]">General Inquiries</h2>
+              <p class="font-['Verdana',_sans-serif]">
+                For general questions, feedback, or partnership opportunities, please reach out to us.
+              </p>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-bold text-white mb-2 font-['Trebuchet_MS',_sans-serif]">Show Submissions</h2>
+              <p class="font-['Verdana',_sans-serif]">
+                Interested in creating content for IndieTennis? We're always looking for passionate tennis creators.
+              </p>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-bold text-white mb-2 font-['Trebuchet_MS',_sans-serif]">Advertising & Sponsorship</h2>
+              <p class="font-['Verdana',_sans-serif]">
+                Connect your brand with tennis enthusiasts worldwide. Contact us for advertising opportunities.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-white/20">
+            <p class="text-sm text-white/60 font-['Verdana',_sans-serif]">
+              IndieTennis, Inc.<br />
+              © 2008-2025, All Rights Reserved
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

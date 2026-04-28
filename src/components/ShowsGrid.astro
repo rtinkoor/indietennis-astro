@@ -1,0 +1,37 @@
+---
+import { shows } from '../data/shows';
+---
+
+<section class="relative py-8 bg-gradient-to-b from-transparent to-black/20">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-6">
+      <a
+        href="https://www.playingvolley.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-[hsl(75,65%,50%)] hover:text-[hsl(75,65%,60%)] underline transition-colors text-sm font-['Verdana',_sans-serif]"
+      >
+        https://www.playingvolley.com
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {shows.map((show) => (
+        <a
+          href={show.href}
+          class="group block rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+          style={`background-color: ${show.bgColor}; color: ${show.textColor};`}
+        >
+          <div class="p-8 md:p-10 h-48 md:h-56 flex items-center justify-center">
+            <div class="text-center">
+              {show.titleLines.map((line) => (
+                <div class="font-black text-xl md:text-2xl leading-tight tracking-wide font-['Trebuchet_MS',_sans-serif] drop-shadow-md">
+                  {line}
+                </div>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

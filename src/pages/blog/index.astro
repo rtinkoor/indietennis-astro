@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { posts } from '../../data/posts';
+---
+
+<BaseLayout
+  title="Tennis Blog — IndieTennis | Independent Tennis Coverage"
+  description="In-depth tennis writing from IndieTennis — covering independent tennis media, shows, tactics, and the game beyond the mainstream broadcast."
+  canonicalUrl="https://www.indietennis.com/blog"
+>
+  <Header />
+
+  <main class="relative min-h-screen pt-32 pb-16">
+    <img
+      src="/court-background-optimized.webp"
+      alt="Tennis court background"
+      width={1920}
+      height={1080}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 -z-10 w-full h-full object-cover"
+    />
+
+    <div class="container mx-auto px-4 max-w-2xl">
+      <div class="bg-black/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/10">
+        <h1 class="text-4xl font-bold text-white mb-2 font-['Trebuchet_MS',_sans-serif]">Tennis Blog</h1>
+        <p class="text-white/50 mb-12 font-['Verdana',_sans-serif] text-sm">
+          Writing on the game, its media, and what happens outside the official broadcast.
+        </p>
+
+        <div class="space-y-10">
+          {posts.map((post) => {
+            const formattedDate = new Date(post.publishedDate).toLocaleDateString('en-US', {
+              year: 'numeric', month: 'long', day: 'numeric',
+            });
+            return (
+              <article class="border-b border-white/10 pb-10">
+                <div class="mb-2">
+                  <span class="text-xs font-semibold uppercase tracking-widest text-yellow-500 font-['Verdana',_sans-serif]">
+                    {post.category}
+                  </span>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-2 font-['Trebuchet_MS',_sans-serif]">
+                  <a href={`/blog/${post.slug}`} class="hover:text-[hsl(75,65%,50%)] transition-colors">
+                    {post.title}
+                  </a>
+                </h2>
+                <p class="text-white/60 mb-4 leading-relaxed font-['Verdana',_sans-serif] text-sm">
+                  {post.excerpt}
+                </p>
+                <div class="flex items-center gap-3 text-sm text-white/40 font-['Verdana',_sans-serif]">
+                  <span>{post.author}</span>
+                  <span>·</span>
+                  <time datetime={post.publishedDate}>{formattedDate}</time>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

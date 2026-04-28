@@ -1,0 +1,52 @@
+---
+import MobileNav from './MobileNav.tsx';
+
+const navItems = [
+  { label: 'Schedule', href: '/' },
+  { label: 'Watch Episodes', href: '/show/the-resort-channel' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'News', href: '/show/tennis-today-with-dr-jack-ditty' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[hsl(0,0%,15%)] border-b border-[hsl(0,0%,25%)]">
+  <div class="container mx-auto px-4">
+    <!-- Top section: logo + sponsor -->
+    <div class="flex flex-row items-center justify-between py-2 gap-4 relative">
+      <a href="/" class="bg-[hsl(75,65%,50%)] px-6 py-3 rounded hover:bg-[hsl(75,65%,55%)] transition-colors cursor-pointer">
+        <div class="text-[hsl(0,0%,15%)] font-bold">
+          <div class="text-3xl leading-none tracking-tight font-['Trebuchet_MS',_sans-serif]">indie</div>
+          <div class="text-sm tracking-wider">TENNIS.COM</div>
+        </div>
+      </a>
+
+      <!-- Sponsor -->
+      <div class="hidden sm:flex bg-[hsl(0,0%,25%)] px-8 py-4 rounded items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+          <span class="text-white text-xs font-bold">B</span>
+        </div>
+        <span class="text-white font-bold text-xl font-['Trebuchet_MS',_sans-serif]">Babolat</span>
+      </div>
+
+      <!-- Mobile nav island -->
+      <MobileNav client:load />
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="pb-3 hidden md:block">
+      <ul class="flex flex-wrap items-center justify-center gap-2 md:gap-3">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="inline-block px-4 py-1.5 bg-[hsl(0,0%,35%)] hover:bg-[hsl(0,0%,45%)] text-white text-sm rounded-full transition-colors font-['Verdana',_sans-serif]"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
